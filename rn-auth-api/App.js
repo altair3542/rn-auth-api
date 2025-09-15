@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AuthProvider, AuthContext } from "./src/auth/AuthContext";
+import LoginScreen from "./src/auth/LoginScreen";
+import SplashScreen from "./src/auth/SplashScreen";
+import ProductsScreen from "./src/products/ProductsScreen";
+import ProductDetailScreen from "./src/products/ProductDetailScreen";
+import { useContext } from "react";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function RootNavigator() {
+  const { isLoading, token } = useContext(AuthContext);
+
+  if (isLoading) return <SplashScreen />;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator>
+      {token ? (
+        <>
+          <Stack.Screen name="Products" component={ProductsScreen} options={{ title: "Productos" }} />
+          <Stack.Screen name="ProductDetail" component={ProductDetailScreen} options={{ title: "Detalle" }} />
+        </>
+      ) : (
+        <Stack.Screen name="Login" component={LoginScreen} options={{ title: "Iniciar sesión" }} />
+      )}
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <AuthProvider>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </AuthProvider>
+  );
+}
