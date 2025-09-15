@@ -1,0 +1,51 @@
+# Node
+node_modules/
+npm-debug.*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.pnp
+.pnp.js
+
+# Expo / React Native
+.expo/
+.expo-shared/
+.expo-dev/
+dist/
+web-build/
+.expo-bundle
+
+# Metro bundler
+.cache/
+metro-cache/
+
+# Build outputs
+android/
+ios/
+*.apk
+*.aab
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Env files
+.env
+.env.*.local
+
+# Package managers
+package-lock.json
+yarn.lock
+.pnpm-lock.yaml
+
+# Jest / Testing
+coverage/
+jest-cache/
